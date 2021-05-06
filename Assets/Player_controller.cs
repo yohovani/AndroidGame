@@ -7,9 +7,11 @@ public class Player_controller : MonoBehaviour
     public float maxSpeed = 5f;
     public float speed = 2f;
     public bool grounded;
+    public float jumpPoer = 6.5f; 
 
     private Rigidbody2D rb2d;
     private Animator anim;
+    private bool jump;
 
 
     // Start is called before the first frame update
@@ -24,7 +26,14 @@ public class Player_controller : MonoBehaviour
     {
         anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
         anim.SetBool("Grounded", grounded);
+
+
+        if (Input.GetKeyDown(KeyCode.UpArrow)&& grounded){
+            jump = true;
+        }
+
     }
+
 
 
     void FixedUpdate()
@@ -46,6 +55,11 @@ public class Player_controller : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
+
+        if (jump){
+            rb2d.AddForce(Vector2.up * jumpPoer, ForceMode2D.Impulse);
+            jump = false;
+        }
 
         Debug.Log(rb2d.velocity.x);
 
