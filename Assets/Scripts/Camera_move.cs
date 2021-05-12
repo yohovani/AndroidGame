@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class Camera_move : MonoBehaviour
 {
-    public Transform player0;
+	public GameObject follow;
+	public Vector2 minCamPos, maxCamPos;
+	public float smoothTime;
 
-    void Update()
-    {
-        if (player0 != null)
-        {
-            Vector3 position = transform.position;
-            position.x = player0.position.x;
-            transform.position = position;
-        }
-    }
+	private Vector2 velocity;
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void FixedUpdate () {
+		float posX = Mathf.SmoothDamp(transform.position.x,
+			follow.transform.position.x, ref velocity.x, smoothTime);
+		float posY = Mathf.SmoothDamp(transform.position.y,
+			follow.transform.position.y, ref velocity.y, smoothTime);
+
+		transform.position = new Vector3(
+			Mathf.Clamp(posX, minCamPos.x, maxCamPos.x), 
+			Mathf.Clamp(posY, minCamPos.y, maxCamPos.y),
+			transform.position.z);
+	}
 }
