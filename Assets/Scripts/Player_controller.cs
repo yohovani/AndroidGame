@@ -87,6 +87,7 @@ public class Player_controller : MonoBehaviour
             jump = false;
             Debug.Log(Points);
         }
+
         
     }
 
@@ -126,7 +127,7 @@ public class Player_controller : MonoBehaviour
     }
 // Reposicionamiento del player durante las pruebas 
     void OnBecameInvisible(){
-        transform.position = new Vector3(0,0,0);
+        transform.position = new Vector3(-4.7f,-3.3f,0f);
         Destroy(MyCanvas.transform.GetChild(CantDeCorazon + 1).gameObject);
         CantDeCorazon -= 1;
     }
@@ -162,6 +163,13 @@ public class Player_controller : MonoBehaviour
 		spr.color = Color.white;
 	}
 
+    public void Coraplus(){
+        CantDeCorazon += 1;
+        Transform PosCorazon = PosicionPrimerCorazon;
+        Image NewCorazon = Instantiate(Corazon, PosCorazon.position, Quaternion.identity);
+        NewCorazon.transform.parent = MyCanvas.transform;
+        PosCorazon.position = new Vector2(PosCorazon.position.x + offSet, PosCorazon.position.y);
+    }
     
 
 }

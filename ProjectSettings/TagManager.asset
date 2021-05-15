@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Platform
   - Enemies
+  - Life
+  - Agua
   layers:
   - Default
   - TransparentFX
